@@ -5,24 +5,71 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
+import Pagination from '@mui/material/Pagination';
+
 
 import getLevels from '../containers/methods';
 
 const Body = () => {
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
+    const [index, setIndex] = useState(20);
+    const [pageCount, setPageCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState([]);
     const handleChange = (event) => {
     setSearchText(event.target.value);
     };
 
     const handleSearchResults = (resp) => {
-        setSearchResults(resp.data);
-        console.log("resp.data ", resp.data)
+        setPageCount(Math.ceil(resp.data.length / 20));
+        let resultsArr = [];
+        let n = 0;
+        let b = 0
+        resultsArr[b] = new Array();
+        for(let i = 0; i < resp.data.length; i++){
+            if(n < 20){
+                n++;
+                resultsArr[b].push(resp.data[i]);
+            }else{
+                n = 0;
+                b = b + 1;
+                resultsArr[b] = new Array();
+                console.log("b ", b);
+                resultsArr[b].push(resp.data[i]);
+            }
+
+        }
+        setSearchResults(resultsArr)
+        setCurrentPage(resultsArr[pageNumber])
+        console.log("resultsArr ", resultsArr);
     };
 
     const handleSearch = (text) => {
         getLevels(text, handleSearchResults);
     };
+
+    const handlePageChange = (event, value) => {
+        console.log("event ", event);
+        setPageNumber(value);
+        setIndex(index + 20);
+        setCurrentPage(searchResults[pageNumber]);
+    };
+
+    const items = currentPage.map(i => {
+    return  <Grid key={i.id} item>
+                <Paper
+                    sx={{
+                    height: 140,
+                    width: 100,
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                    }}
+                >
+                    <p>{i.course.header.title}</p>
+                </Paper>
+            </Grid>
+    });   
 
     return (
         <React.Fragment>
@@ -51,31 +98,20 @@ const Body = () => {
                 Let's a go!
             </Button>
             {searchResults.length > 0 ? 
-                <Container maxWidth="sm">
-                    <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}>
-                        <Grid sx={{ flexGrow: 1 }} container spacing={2}>
-                            <Grid item xs={12}>
-                                <Grid container justifyContent="center" spacing={3}>
-                                {searchResults.map((value) => (
-                                    <Grid key={value.id} item>
-                                    <Paper
-                                        sx={{
-                                        height: 140,
-                                        width: 100,
-                                        backgroundColor: (theme) =>
-                                            theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-                                        }}
-                                    >
-                                        <p>{value.course.header.title}</p>
-                                    </Paper>
-                                    <Paper />
+                <React.Fragment>
+                    <Container maxWidth="sm">
+                        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}>
+                            <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Grid container justifyContent="center" spacing={3}>
+                                    {items}
                                     </Grid>
-                                ))}
                                 </Grid>
                             </Grid>
-                        </Grid>
-                    </Box>
-                </Container>
+                        </Box>
+                        <Pagination count={pageCount} variant="outlined" color="primary" onChange={handlePageChange}/>
+                    </Container>
+                </React.Fragment>
                 :
                 <div />
             }
