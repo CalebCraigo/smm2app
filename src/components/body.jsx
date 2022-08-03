@@ -49,7 +49,7 @@ const Body = () => {
 
     const handlePageChange = (event, value) => {
         setPageNumber(value);
-        setCurrentPage(searchResults[value]);
+        setCurrentPage(searchResults[value - 1]);
     };
 
     const items = currentPage.map(i => {
