@@ -14,7 +14,6 @@ const Body = () => {
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
-    const [index, setIndex] = useState(20);
     const [pageCount, setPageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState([]);
     const handleChange = (event) => {
@@ -42,7 +41,6 @@ const Body = () => {
         }
         setSearchResults(resultsArr)
         setCurrentPage(resultsArr[pageNumber])
-        console.log("resultsArr ", resultsArr);
     };
 
     const handleSearch = (text) => {
@@ -50,10 +48,8 @@ const Body = () => {
     };
 
     const handlePageChange = (event, value) => {
-        console.log("event ", event);
         setPageNumber(value);
-        setIndex(index + 20);
-        setCurrentPage(searchResults[pageNumber]);
+        setCurrentPage(searchResults[value]);
     };
 
     const items = currentPage.map(i => {
