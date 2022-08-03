@@ -1,0 +1,18 @@
+.noResultsBackground{
+    
+}
+
+.formBox{
+    display: block;
+    text-align: center;
+}
+
+.textField{
+    background-color: white;
+    width: 50% !important;
+}
+
+.buttonBox{
+    display: block;
+    text-align: center;
+}

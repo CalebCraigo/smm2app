@@ -6,10 +6,50 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import '../css/body.css';
 
+import superMarioMakerExtended from '../fonts/super-mario-maker-extended.ttf';
 import getLevels from '../containers/methods';
 
+
 const Body = () => {
+    const theme = createTheme({
+        status: {
+            danger: '#e53e3e',
+        },
+        palette: {
+            primary: {
+            main: '#D42D26'
+            },
+            neutral: {
+                main: '#000000',
+                contrastText: '#000',
+            },
+            typography:{
+                fontFamily: [
+                    'Super-Mario-Maker-Extended', 
+                    'sans-serif'
+                ]
+            },
+            components: {
+                MuiCssBaseline: {
+                    styleOverrides: `
+                        @font-face {
+                        font-family: 'Super-Mario-Maker-Extended';
+                        font-style: normal;
+                        font-display: swap;
+                        font-weight: 400;
+                        src: local('Super-Mario-Maker-Extended'), local('Super-Mario-Maker-Extended'), url(${superMarioMakerExtended}) format('ttf');
+                        unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+                        }
+                    `,
+                },
+            },
+        }
+        });
+
+
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
@@ -20,7 +60,6 @@ const Body = () => {
     };
 
     const handleSearchResults = (resp) => {
-        console.log("resp length", resp.data.length);
         setPageCount(Math.ceil(resp.data.length / 20));
         let resultsArr = [];
         let n = 0;
@@ -35,9 +74,7 @@ const Body = () => {
                 n = 0;
                 b = b + 1;
                 resultsArr[b] = [];
-                console.log("b ", b);
             }
-
         }
         setSearchResults(resultsArr)
         setCurrentPage(resultsArr[pageNumber])
@@ -68,7 +105,7 @@ const Body = () => {
     });   
 
     return (
-        <React.Fragment>
+        <ThemeProvider theme={theme}>
             <Box
                 component="form"
                 sx={{
@@ -76,23 +113,32 @@ const Body = () => {
                 }}
                 noValidate
                 autoComplete="off"
+                className="formBox"
             >
                 <TextField 
-                    id="outlined-basic" 
+                    id="filled-basic" 
                     label="Search" 
-                    variant="outlined" 
+                    variant="filled" 
                     value={searchText}
                     onChange={handleChange}
+                    className="textField"
+                    color="neutral"
                 />
             </Box>
-            <Button 
-                variant="contained"
-                onClick={() => {
-                    handleSearch(searchText)
-                }}
+            <Box
+                className="buttonBox"
             >
-                Let's a go!
-            </Button>
+                <Button 
+                    color="primary"
+                    variant="contained"
+                    sx={{ fontFamily: "Super-Mario-Maker-Extended" }}
+                    onClick={() => {
+                        handleSearch(searchText)
+                    }}
+                >
+                    Let's a go!
+                </Button>
+            </Box>
             {searchResults.length > 0 ? 
                 <React.Fragment>
                     <Container maxWidth="sm">
@@ -111,7 +157,7 @@ const Body = () => {
                 :
                 <div />
             }
-        </React.Fragment>
+        </ThemeProvider>
     )
 }
 
