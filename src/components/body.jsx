@@ -7,7 +7,6 @@ import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 
-
 import getLevels from '../containers/methods';
 
 const Body = () => {
@@ -21,21 +20,22 @@ const Body = () => {
     };
 
     const handleSearchResults = (resp) => {
+        console.log("resp length", resp.data.length);
         setPageCount(Math.ceil(resp.data.length / 20));
         let resultsArr = [];
         let n = 0;
         let b = 0
-        resultsArr[b] = new Array();
+        resultsArr[b] = [];
         for(let i = 0; i < resp.data.length; i++){
-            if(n < 20){
+            if(n < 19){
                 n++;
                 resultsArr[b].push(resp.data[i]);
             }else{
+                resultsArr[b].push(resp.data[i]);
                 n = 0;
                 b = b + 1;
-                resultsArr[b] = new Array();
+                resultsArr[b] = [];
                 console.log("b ", b);
-                resultsArr[b].push(resp.data[i]);
             }
 
         }
