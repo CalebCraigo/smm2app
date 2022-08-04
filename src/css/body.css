@@ -5,6 +5,7 @@
 .formBox{
     display: block;
     text-align: center;
+    padding: 1%;
 }
 
 .textField{
@@ -16,3 +17,19 @@
     display: block;
     text-align: center;
 }
+
+.paginator{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 4%;
+}
+
+.mario{
+    height: 450px;
+    margin-bottom: 1px;
+    margin-left: 1px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+

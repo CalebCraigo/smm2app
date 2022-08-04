@@ -11,6 +11,7 @@ import '../css/body.css';
 
 import superMarioMakerExtended from '../fonts/super-mario-maker-extended.ttf';
 import getLevels from '../containers/methods';
+import mario from '../images/mario.png';
 
 
 const Body = () => {
@@ -142,7 +143,7 @@ const Body = () => {
             {searchResults.length > 0 ? 
                 <React.Fragment>
                     <Container maxWidth="sm">
-                        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}>
+                        <Box sx={{ bgcolor: '#FACD00', height: '100vh' }}>
                             <Grid sx={{ flexGrow: 1 }} container spacing={2}>
                                 <Grid item xs={12}>
                                     <Grid container justifyContent="center" spacing={3}>
@@ -151,13 +152,22 @@ const Body = () => {
                                 </Grid>
                             </Grid>
                         </Box>
-                        <Pagination count={pageCount} variant="outlined" color="primary" onChange={handlePageChange}/>
+                        <Pagination 
+                            count={pageCount} 
+                            variant="outlined" 
+                            color="primary" 
+                            onChange={handlePageChange}
+                            className="paginator"
+                            sx={{ fontFamily: "Super-Mario-Maker-Extended" }}
+                        />
                     </Container>
                 </React.Fragment>
                 :
                 <div />
             }
+        <img className="mario" src={mario} alt="Super Mario Maker - Super Mario Maker Mario@nicepng.com" />
         </ThemeProvider>
+        
     )
 }
 

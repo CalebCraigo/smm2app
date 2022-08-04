@@ -54,7 +54,7 @@ const theme = createTheme({
                     <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                         <MenuIcon />
                     </IconButton>
-                    <Typography sx={{ fontFamily: 'Super-Mario-Maker-Extended' }} variant="h6" color="inherit" component="div">
+                    <Typography sx={{ fontFamily: "Super-Mario-Maker-Extended" }} variant="h6" color="inherit" component="div">
                         Super Mario Maker Index
                     </Typography>
                     </Toolbar>
