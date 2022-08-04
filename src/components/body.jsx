@@ -12,6 +12,7 @@ import '../css/body.css';
 import superMarioMakerExtended from '../fonts/super-mario-maker-extended.ttf';
 import getLevels from '../containers/methods';
 import mario from '../images/mario.png';
+import bulletBill from '../images/bulletbill.png';
 
 
 const Body = () => {
@@ -140,10 +141,12 @@ const Body = () => {
                     Let's a go!
                 </Button>
             </Box>
+            <img className="bulletBills bulletBillOne" src={bulletBill} alt="Bullet Bill" />
+            <img className="bulletBills bulletBillTwo" src={bulletBill} alt="Bullet Bill" />
             {searchResults.length > 0 ? 
                 <React.Fragment>
                     <Container maxWidth="sm">
-                        <Box sx={{ bgcolor: '#FACD00', height: '100vh' }}>
+                        <Box sx={{ bgcolor: 'transparent', height: '100vh' }}>
                             <Grid sx={{ flexGrow: 1 }} container spacing={2}>
                                 <Grid item xs={12}>
                                     <Grid container justifyContent="center" spacing={3}>
@@ -152,6 +155,7 @@ const Body = () => {
                                 </Grid>
                             </Grid>
                         </Box>
+                        {pageCount > 1 ?
                         <Pagination 
                             count={pageCount} 
                             variant="outlined" 
@@ -160,12 +164,15 @@ const Body = () => {
                             className="paginator"
                             sx={{ fontFamily: "Super-Mario-Maker-Extended" }}
                         />
+                        :
+                        <div />
+                        }
                     </Container>
                 </React.Fragment>
                 :
                 <div />
             }
-        <img className="mario" src={mario} alt="Super Mario Maker - Super Mario Maker Mario@nicepng.com" />
+        <img className="mario" src={mario} alt="Mario" />
         </ThemeProvider>
         
     )
