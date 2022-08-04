@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
+import { styled } from '@mui/material/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../css/body.css';
 
@@ -13,6 +14,9 @@ import superMarioMakerExtended from '../fonts/super-mario-maker-extended.ttf';
 import getLevels from '../containers/methods';
 import mario from '../images/mario.png';
 import bulletBill from '../images/bulletbill.png';
+import rightFacingParaBeetle from '../images/rightFacingParaBeetle.png';
+import luigi from '../images/luigi.png';
+import thwomp from '../images/thwomp.png';
 
 
 const Body = () => {
@@ -50,6 +54,15 @@ const Body = () => {
             },
         }
         });
+
+        const Item = styled(Paper)(({ theme }) => ({
+            backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+            ...theme.typography.body2,
+            padding: theme.spacing(1),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        }));
+
 
 
     const [searchText, setSearchText] = useState('');
@@ -95,13 +108,27 @@ const Body = () => {
     return  <Grid key={i.id} item>
                 <Paper
                     sx={{
-                    height: 140,
-                    width: 100,
-                    backgroundColor: (theme) =>
-                        theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                    height: 300,
+                    width: 300,
+                    backgroundColor: "#FCF5D9"
                     }}
                 >
-                    <p>{i.course.header.title}</p>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={8}>
+                                <Item>xs=8</Item>
+                            </Grid>
+                            <Grid item xs={4}>
+                                Item>xs=4</Item>
+                            </Grid>
+                                <Grid item xs={4}>
+                            <Item>xs=4</Item>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <Item>xs=8</Item>
+                            </Grid>
+                        </Grid>
+                    </Box>
                 </Paper>
             </Grid>
     });   
@@ -143,10 +170,15 @@ const Body = () => {
             </Box>
             <img className="bulletBills bulletBillOne" src={bulletBill} alt="Bullet Bill" />
             <img className="bulletBills bulletBillTwo" src={bulletBill} alt="Bullet Bill" />
+            <img className="paraBeetles paraBeetleOne" src={rightFacingParaBeetle} alt="Para Beetle" />
+            {/* <img className="thwomps thwompOne" src={thwomp} alt="Thwomp" /> */}
             {searchResults.length > 0 ? 
                 <React.Fragment>
-                    <Container maxWidth="sm">
-                        <Box sx={{ bgcolor: 'transparent', height: '100vh' }}>
+                    <Container maxWidth="lg">
+                        <Box 
+                            sx={{ bgcolor: 'transparent', height: '100vh' }}
+                            className="infoCard"
+                        >
                             <Grid sx={{ flexGrow: 1 }} container spacing={2}>
                                 <Grid item xs={12}>
                                     <Grid container justifyContent="center" spacing={3}>
@@ -173,6 +205,7 @@ const Body = () => {
                 <div />
             }
         <img className="mario" src={mario} alt="Mario" />
+        <img className="luigi" src={luigi} alt="Luigi" />
         </ThemeProvider>
         
     )
