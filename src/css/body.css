@@ -15,6 +15,10 @@
     text-align: center;
 }
 
+.infoCards{
+    padding-top: 35px;
+}
+
 .paginator{
     display: flex;
     justify-content: center;

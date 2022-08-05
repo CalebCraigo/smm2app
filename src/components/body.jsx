@@ -18,6 +18,8 @@ import rightFacingParaBeetle from '../images/rightFacingParaBeetle.png';
 import luigi from '../images/luigi.png';
 import thwomp from '../images/thwomp.png';
 
+import InfoCards from './infoCards';
+
 
 const Body = () => {
     const theme = createTheme({
@@ -75,13 +77,13 @@ const Body = () => {
     };
 
     const handleSearchResults = (resp) => {
-        setPageCount(Math.ceil(resp.data.length / 20));
+        setPageCount(Math.ceil(resp.data.length / 10));
         let resultsArr = [];
         let n = 0;
         let b = 0
         resultsArr[b] = [];
         for(let i = 0; i < resp.data.length; i++){
-            if(n < 19){
+            if(n < 9){
                 n++;
                 resultsArr[b].push(resp.data[i]);
             }else{
@@ -108,8 +110,8 @@ const Body = () => {
     return  <Grid key={i.id} item>
                 <Paper
                     sx={{
-                    height: 300,
-                    width: 300,
+                    height: 125,
+                    width: 650,
                     backgroundColor: "#FCF5D9"
                     }}
                 >
@@ -177,12 +179,12 @@ const Body = () => {
                     <Container maxWidth="lg">
                         <Box 
                             sx={{ bgcolor: 'transparent', height: '100vh' }}
-                            className="infoCard"
+                            className="infoCards"
                         >
                             <Grid sx={{ flexGrow: 1 }} container spacing={2}>
                                 <Grid item xs={12}>
                                     <Grid container justifyContent="center" spacing={3}>
-                                    {items}
+                                    <InfoCards currentPage={currentPage}/>
                                     </Grid>
                                 </Grid>
                             </Grid>
